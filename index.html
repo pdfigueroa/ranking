@@ -235,8 +235,8 @@ body{
 <body>
 
 <div class="hero">
-  <div class="hero-badge">⚽ Quiniela Mundialesta Centro Costa Tigo 2026 </div>
-  <h1>Ranking</h1>
+  <div class="hero-badge">⚽ Quiniela Privada</div>
+  <h1>Tabla de Posiciones</h1>
   <p id="subtitle">Cargando datos...</p>
 </div>
 
@@ -265,7 +265,7 @@ body{
 
 <div class="content">
   <div class="stats-row">
-    <div class="stat-card"><div class="stat-label">Líder</div><div class="stat-value small" id="stat-lider">—</div></div>
+    <div class="stat-card"><div class="stat-label">Crack del Momento</div><div class="stat-value small" id="stat-lider">—</div></div>
     <div class="stat-card"><div class="stat-label">Máx. pts</div><div class="stat-value" id="stat-max">—</div></div>
     <div class="stat-card"><div class="stat-label">Jugadores</div><div class="stat-value" id="stat-total">—</div></div>
   </div>
@@ -328,23 +328,27 @@ body{
 
   function renderPodio(sorted) {
     const top3 = sorted.slice(0,3);
-    const positions = [1, 0, 2]; // orden visual: 2°, 1°, 3°
-    positions.forEach((dataIdx, domIdx) => {
+    // orden visual en pantalla: 2° izq, 1° centro, 3° der
+    // domIdx 0=izq(dom id 2), 1=centro(dom id 1), 2=der(dom id 3)
+    // dataIdx: qué posición real va en cada slot visual
+    const slots = [
+      { domId: 2, dataIdx: 1 }, // slot izquierdo  → 2° lugar
+      { domId: 1, dataIdx: 0 }, // slot centro      → 1° lugar
+      { domId: 3, dataIdx: 2 }, // slot derecho     → 3° lugar
+    ];
+    slots.forEach(({ domId, dataIdx }) => {
       const p = top3[dataIdx];
       if (!p) return;
-      const n = domIdx + 1;
-      const avEl = document.getElementById('av' + n);
-      const avColor = AV_COLORS[dataIdx % AV_COLORS.length];
-      if (n === 1) {
+      const avEl = document.getElementById('av' + domId);
+      if (domId === 1) {
         avEl.className = 'podio-avatar p1';
         avEl.textContent = '👑';
       } else {
-        avEl.className = `podio-avatar p${n}`;
-        avEl.className += '';
+        avEl.className = `podio-avatar p${domId}`;
         avEl.textContent = initials(p.Nombre);
       }
-      document.getElementById('pn' + n).textContent = p.Nombre.split(' ').slice(0,2).join(' ');
-      document.getElementById('pp' + n).textContent = p.Puntos + ' pts';
+      document.getElementById('pn' + domId).textContent = p.Nombre.split(' ').slice(0,2).join(' ');
+      document.getElementById('pp' + domId).textContent = p.Puntos + ' pts';
     });
     setTimeout(() => {
       document.querySelectorAll('.podio-item').forEach(el => el.classList.add('visible'));
