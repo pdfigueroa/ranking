@@ -3,220 +3,120 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Tabla de Posiciones</title>
+<title>Quiniela Tigo</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-
 body{
   font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-  background:#05122b;
-  color:#fff;
-  min-height:100vh;
-  padding:0 0 32px;
-  overflow-x:hidden;
+  background:#05122b;color:#fff;min-height:100vh;
+  padding:0 0 32px;overflow-x:hidden;
 }
-
-/* ── HERO ── */
 .hero{
   background:linear-gradient(160deg,#0a2a6e 0%,#0d3da8 50%,#0a2a6e 100%);
-  padding:28px 20px 80px;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
+  padding:28px 20px 80px;text-align:center;
+  position:relative;overflow:hidden;
 }
 .hero::before{
-  content:'';
-  position:absolute;inset:0;
+  content:'';position:absolute;inset:0;
   background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='1'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30Z'/%3E%3C/g%3E%3C/svg%3E") repeat;
 }
 .hero-badge{
-  display:inline-block;
-  background:rgba(255,255,255,0.12);
-  border:1px solid rgba(255,255,255,0.2);
-  border-radius:20px;
-  font-size:11px;
-  font-weight:600;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  padding:5px 14px;
-  margin-bottom:12px;
-  position:relative;
+  display:inline-block;background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.2);border-radius:20px;
+  font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:5px 14px;margin-bottom:12px;position:relative;
 }
-.hero h1{
-  font-size:26px;
-  font-weight:700;
-  letter-spacing:-0.02em;
-  position:relative;
-  margin-bottom:4px;
-}
-.hero p{
-  font-size:13px;
-  color:rgba(255,255,255,0.5);
-  position:relative;
-}
+.hero h1{font-size:26px;font-weight:700;letter-spacing:-0.02em;position:relative;margin-bottom:4px;}
+.hero p{font-size:13px;color:rgba(255,255,255,0.5);position:relative;}
 
-/* ── PODIO ── */
-.podio-wrap{
-  padding:0 16px;
-  margin-top:-54px;
-  margin-bottom:24px;
-  position:relative;
-  z-index:2;
-}
-.podio{
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  gap:8px;
-}
+/* PODIO */
+.podio-wrap{padding:0 16px;margin-top:-54px;margin-bottom:24px;position:relative;z-index:2;}
+.podio{display:flex;align-items:flex-end;justify-content:center;gap:8px;}
 .podio-item{
-  flex:1;
-  max-width:120px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  opacity:0;
-  transform:translateY(30px);
-  transition:opacity .5s ease, transform .5s ease;
+  flex:1;max-width:120px;display:flex;flex-direction:column;align-items:center;
+  opacity:0;transform:translateY(30px);
+  transition:opacity .5s ease,transform .5s ease;
 }
-.podio-item.visible{opacity:1;transform:translateY(0)}
-.podio-item:nth-child(1){transition-delay:.1s}
-.podio-item:nth-child(2){transition-delay:0s}
-.podio-item:nth-child(3){transition-delay:.2s}
-
+.podio-item.visible{opacity:1;transform:translateY(0);}
+.podio-item:nth-child(1){transition-delay:.1s;}
+.podio-item:nth-child(2){transition-delay:0s;}
+.podio-item:nth-child(3){transition-delay:.2s;}
 .podio-avatar{
   width:54px;height:54px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
   font-size:20px;font-weight:700;
-  border:3px solid rgba(255,255,255,0.2);
-  margin-bottom:8px;
-  flex-shrink:0;
+  border:3px solid rgba(255,255,255,0.2);margin-bottom:8px;flex-shrink:0;
 }
 .podio-avatar.p1{background:linear-gradient(135deg,#f5c842,#e8a020);color:#2a1a00;border-color:#f5c842;width:64px;height:64px;font-size:24px;}
 .podio-avatar.p2{background:linear-gradient(135deg,#c8d6e5,#8395a7);color:#1a1f2a;border-color:#b0b8c8;}
 .podio-avatar.p3{background:linear-gradient(135deg,#e17055,#d35400);color:#fff;border-color:#cd7f45;}
-
-.podio-name{
-  font-size:11px;font-weight:600;text-align:center;
-  color:#fff;line-height:1.3;margin-bottom:4px;
-  max-width:100px;
-}
-.podio-pts{
-  font-size:13px;font-weight:700;color:#f5c842;margin-bottom:6px;
-}
-.podio-block{
-  width:100%;border-radius:10px 10px 0 0;
-  display:flex;align-items:center;justify-content:center;
-  font-size:22px;font-weight:800;color:rgba(255,255,255,0.15);
-}
+.podio-name{font-size:11px;font-weight:600;text-align:center;color:#fff;line-height:1.3;margin-bottom:4px;max-width:100px;}
+.podio-pts{font-size:13px;font-weight:700;color:#f5c842;margin-bottom:6px;}
+.podio-block{width:100%;border-radius:10px 10px 0 0;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:800;color:rgba(255,255,255,0.15);}
 .podio-block.b1{height:70px;background:linear-gradient(180deg,#1a56d6,#0d3da8);}
 .podio-block.b2{height:50px;background:linear-gradient(180deg,#1244a8,#0a2a6e);}
 .podio-block.b3{height:38px;background:linear-gradient(180deg,#0e3080,#071e50);}
 
-/* ── CONTENIDO ── */
+/* CONTENIDO */
 .content{padding:0 16px;}
-
-/* ── STATS ── */
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
-.stat-card{
-  background:rgba(255,255,255,0.06);
-  border:1px solid rgba(255,255,255,0.08);
-  border-radius:12px;padding:12px;text-align:center;
-}
+.stat-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:12px;text-align:center;}
 .stat-label{font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;}
 .stat-value{font-size:19px;font-weight:700;color:#fff;}
 .stat-value.small{font-size:12px;line-height:1.4;}
+.section-title{font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px;}
 
-/* ── TABLA ── */
-.section-title{
-  font-size:12px;font-weight:600;color:rgba(255,255,255,0.4);
-  text-transform:uppercase;letter-spacing:.08em;
-  margin-bottom:10px;
-}
-.table-wrap{
-  background:rgba(255,255,255,0.03);
-  border-radius:16px;
-  border:1px solid rgba(255,255,255,0.07);
-  overflow:hidden;
-}
+/* TABLA — 4 columnas: # | nombre+avatar | exactos+parciales | pts */
+.table-wrap{background:rgba(255,255,255,0.03);border-radius:16px;border:1px solid rgba(255,255,255,0.07);overflow:hidden;}
 .col-headers{
   display:grid;
-  grid-template-columns:42px 44px 1fr 48px 48px 56px;
+  grid-template-columns:36px 1fr 72px 54px;
   padding:10px 12px;
   border-bottom:1px solid rgba(255,255,255,0.07);
 }
-.col-headers span{
-  font-size:10px;font-weight:600;
-  color:rgba(255,255,255,0.3);
-  text-transform:uppercase;letter-spacing:.06em;
-  text-align:center;
-}
-.col-headers span:nth-child(3){text-align:left;}
+.col-headers span{font-size:10px;font-weight:600;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:.06em;text-align:center;}
+.col-headers span:nth-child(2){text-align:left;padding-left:8px;}
 .col-headers span:last-child{text-align:right;}
 
 .row{
   display:grid;
-  grid-template-columns:42px 44px 1fr 48px 48px 56px;
+  grid-template-columns:36px 1fr 72px 54px;
   align-items:center;
   padding:10px 12px;
   border-bottom:1px solid rgba(255,255,255,0.04);
-  opacity:0;
-  transform:translateX(-16px);
-  transition:opacity .4s ease, transform .4s ease, background .15s;
+  opacity:0;transform:translateX(-16px);
+  transition:opacity .4s ease,transform .4s ease,background .15s;
 }
 .row.visible{opacity:1;transform:translateX(0);}
 .row:last-child{border-bottom:none;}
 .row:hover{background:rgba(255,255,255,0.05);}
 .row.top3{background:rgba(30,80,200,0.15);}
 
-.pos-badge{
-  width:26px;height:26px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:700;margin:auto;
-}
+.pos-badge{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin:auto;}
 .pos-1{background:#f5c842;color:#2a1a00;}
 .pos-2{background:#b0b8c8;color:#1a1f2a;}
 .pos-3{background:#cd7f45;color:#2a1200;}
 .pos-other{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.45);}
 
-.avatar-sm{
-  width:32px;height:32px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:700;
-  flex-shrink:0;margin:auto;
-}
+/* nombre + avatar juntos en una celda */
+.name-cell{display:flex;align-items:center;gap:8px;min-width:0;padding-left:4px;}
+.avatar-sm{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.name{font-size:13px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1;}
 
-.name{font-size:13px;color:#fff;padding:0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-
-.chip{
-  display:inline-flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:600;
-  width:30px;height:20px;border-radius:5px;margin:auto;
-}
+/* exactos + parciales juntos */
+.chips-cell{display:flex;align-items:center;justify-content:center;gap:3px;}
+.chip{display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;width:28px;height:19px;border-radius:4px;}
 .chip-ex {background:rgba(56,145,255,0.2);color:#7cb9ff;}
-.chip-par{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.45);}
+.chip-par{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.4);}
 
 .pts-cell{text-align:right;font-size:14px;font-weight:700;color:#f5c842;}
 .pts-cell small{font-size:10px;font-weight:400;color:rgba(255,255,255,0.3);}
 
-/* ── LOADING / ERROR ── */
 .loading{text-align:center;padding:40px 20px;color:rgba(255,255,255,0.35);font-size:14px;}
 .error{text-align:center;padding:30px 20px;color:#ff7c7c;font-size:13px;line-height:1.8;}
-
-/* ── REFRESH ── */
-.refresh-btn{
-  display:flex;align-items:center;justify-content:center;gap:6px;
-  margin:18px auto 0;
-  background:rgba(255,255,255,0.07);
-  border:1px solid rgba(255,255,255,0.12);
-  color:rgba(255,255,255,0.6);
-  font-size:12px;padding:9px 22px;
-  border-radius:10px;cursor:pointer;font-family:inherit;
-  transition:background .15s;
-}
+.refresh-btn{display:flex;align-items:center;justify-content:center;gap:6px;margin:18px auto 0;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.6);font-size:12px;padding:9px 22px;border-radius:10px;cursor:pointer;font-family:inherit;transition:background .15s;}
 .refresh-btn:hover{background:rgba(255,255,255,0.13);}
 
-/* avatar colors */
 .av0{background:#1a56d6;color:#a8c8ff;}
 .av1{background:#0d6e3a;color:#7dffc0;}
 .av2{background:#7b2fa8;color:#dbb0ff;}
@@ -225,37 +125,33 @@ body{
 .av5{background:#1e7a7a;color:#a0ffff;}
 .av6{background:#5a1ea8;color:#c8a0ff;}
 .av7{background:#a81e6a;color:#ffb0d8;}
-
-@media(max-width:380px){
-  .col-headers,.row{grid-template-columns:36px 38px 1fr 42px 42px 50px;}
-  .name{font-size:12px;}
-}
 </style>
 </head>
 <body>
 
 <div class="hero">
+  <img src="logo.png" style="position:absolute;top:14px;right:16px;width:54px;height:54px;object-fit:contain;border-radius:10px;z-index:2;" alt="logo"/>
   <div class="hero-badge">⚽ Quiniela Privada</div>
-  <h1>Tabla de Posiciones</h1>
+  <h1>Ranking</h1>
   <p id="subtitle">Cargando datos...</p>
 </div>
 
 <div class="podio-wrap">
   <div class="podio" id="podio">
-    <div class="podio-item" id="p2">
-      <div class="podio-avatar p2" id="av2">2</div>
+    <div class="podio-item">
+      <div class="podio-avatar p2" id="av2"></div>
       <div class="podio-name" id="pn2">—</div>
       <div class="podio-pts" id="pp2">— pts</div>
       <div class="podio-block b2">2</div>
     </div>
-    <div class="podio-item" id="p1">
+    <div class="podio-item">
       <div class="podio-avatar p1" id="av1">👑</div>
       <div class="podio-name" id="pn1">—</div>
       <div class="podio-pts" id="pp1">— pts</div>
       <div class="podio-block b1">1</div>
     </div>
-    <div class="podio-item" id="p3">
-      <div class="podio-avatar p3" id="av3">3</div>
+    <div class="podio-item">
+      <div class="podio-avatar p3" id="av3"></div>
       <div class="podio-name" id="pn3">—</div>
       <div class="podio-pts" id="pp3">— pts</div>
       <div class="podio-block b3">3</div>
@@ -265,7 +161,7 @@ body{
 
 <div class="content">
   <div class="stats-row">
-    <div class="stat-card"><div class="stat-label">Crack del Momento</div><div class="stat-value small" id="stat-lider">—</div></div>
+    <div class="stat-card"><div class="stat-label">Crack del momento</div><div class="stat-value small" id="stat-lider">—</div></div>
     <div class="stat-card"><div class="stat-label">Máx. pts</div><div class="stat-value" id="stat-max">—</div></div>
     <div class="stat-card"><div class="stat-label">Jugadores</div><div class="stat-value" id="stat-total">—</div></div>
   </div>
@@ -275,10 +171,8 @@ body{
   <div class="table-wrap">
     <div class="col-headers">
       <span>#</span>
-      <span></span>
       <span>Nombre</span>
-      <span>Exact.</span>
-      <span>Parc.</span>
+      <span>E / P</span>
       <span>Pts</span>
     </div>
     <div id="list"><div class="loading">⏳ Cargando ranking...</div></div>
@@ -294,118 +188,106 @@ body{
   const CSV_PROXY  = `https://corsproxy.io/?${encodeURIComponent(CSV_DIRECT)}`;
   const AV_COLORS  = ['av0','av1','av2','av3','av4','av5','av6','av7'];
 
-  function initials(name) {
-    const parts = name.trim().split(' ').filter(Boolean);
-    return parts.length >= 2
-      ? (parts[0][0] + parts[1][0]).toUpperCase()
-      : name.slice(0,2).toUpperCase();
+  function initials(name){
+    const p = name.trim().split(' ').filter(Boolean);
+    return p.length>=2 ? (p[0][0]+p[1][0]).toUpperCase() : name.slice(0,2).toUpperCase();
   }
 
-  function parseCSV(text) {
+  function parseCSV(text){
     const lines = text.trim().split('\n');
-    const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g,''));
-    return lines.slice(1).map(line => {
-      const cols = []; let cur = '', inQ = false;
-      for (let i = 0; i < line.length; i++) {
-        if (line[i] === '"') { inQ = !inQ; }
-        else if (line[i] === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
-        else { cur += line[i]; }
+    const headers = lines[0].split(',').map(h=>h.trim().replace(/^"|"$/g,''));
+    return lines.slice(1).map(line=>{
+      const cols=[];let cur='',inQ=false;
+      for(let i=0;i<line.length;i++){
+        if(line[i]==='"'){inQ=!inQ;}
+        else if(line[i]===','&&!inQ){cols.push(cur.trim());cur='';}
+        else{cur+=line[i];}
       }
       cols.push(cur.trim());
-      const obj = {};
-      headers.forEach((h,i) => obj[h] = (cols[i]||'').replace(/^"|"$/g,'').trim());
+      const obj={};
+      headers.forEach((h,i)=>obj[h]=(cols[i]||'').replace(/^"|"$/g,'').trim());
       return obj;
-    }).filter(r => r['Nombre'] && r['Nombre'].length > 0);
+    }).filter(r=>r['Nombre']&&r['Nombre'].length>0);
   }
 
-  function animateIn(selector) {
-    setTimeout(() => {
-      document.querySelectorAll(selector).forEach((el, i) => {
-        setTimeout(() => el.classList.add('visible'), i * 60);
+  function animateIn(){
+    setTimeout(()=>{
+      document.querySelectorAll('.row').forEach((el,i)=>{
+        setTimeout(()=>el.classList.add('visible'),i*55);
       });
-    }, 100);
+    },100);
   }
 
-  function renderPodio(sorted) {
-    const top3 = sorted.slice(0,3);
-    // orden visual en pantalla: 2° izq, 1° centro, 3° der
-    // domIdx 0=izq(dom id 2), 1=centro(dom id 1), 2=der(dom id 3)
-    // dataIdx: qué posición real va en cada slot visual
-    const slots = [
-      { domId: 2, dataIdx: 1 }, // slot izquierdo  → 2° lugar
-      { domId: 1, dataIdx: 0 }, // slot centro      → 1° lugar
-      { domId: 3, dataIdx: 2 }, // slot derecho     → 3° lugar
+  function renderPodio(sorted){
+    const slots=[
+      {domId:2,dataIdx:1},
+      {domId:1,dataIdx:0},
+      {domId:3,dataIdx:2},
     ];
-    slots.forEach(({ domId, dataIdx }) => {
-      const p = top3[dataIdx];
-      if (!p) return;
-      const avEl = document.getElementById('av' + domId);
-      if (domId === 1) {
-        avEl.className = 'podio-avatar p1';
-        avEl.textContent = '👑';
-      } else {
-        avEl.className = `podio-avatar p${domId}`;
-        avEl.textContent = initials(p.Nombre);
-      }
-      document.getElementById('pn' + domId).textContent = p.Nombre.split(' ').slice(0,2).join(' ');
-      document.getElementById('pp' + domId).textContent = p.Puntos + ' pts';
+    slots.forEach(({domId,dataIdx})=>{
+      const p=sorted[dataIdx];
+      if(!p)return;
+      const avEl=document.getElementById('av'+domId);
+      if(domId===1){avEl.className='podio-avatar p1';avEl.textContent='👑';}
+      else{avEl.className=`podio-avatar p${domId}`;avEl.textContent=initials(p.Nombre);}
+      document.getElementById('pn'+domId).textContent=p.Nombre.split(' ').slice(0,2).join(' ');
+      document.getElementById('pp'+domId).textContent=p.Puntos+' pts';
     });
-    setTimeout(() => {
-      document.querySelectorAll('.podio-item').forEach(el => el.classList.add('visible'));
-    }, 200);
+    setTimeout(()=>{
+      document.querySelectorAll('.podio-item').forEach(el=>el.classList.add('visible'));
+    },200);
   }
 
-  function render(data) {
-    const sorted = [...data].sort((a,b) => Number(b.Puntos) - Number(a.Puntos));
-
-    document.getElementById('stat-lider').textContent  = sorted[0].Nombre.split(' ').slice(0,2).join(' ');
-    document.getElementById('stat-max').textContent    = sorted[0].Puntos;
-    document.getElementById('stat-total').textContent  = sorted.length;
-    document.getElementById('subtitle').textContent    = sorted.length + ' participantes · en vivo';
-
+  function render(data){
+    const sorted=[...data].sort((a,b)=>Number(b.Puntos)-Number(a.Puntos));
+    document.getElementById('stat-lider').textContent=sorted[0].Nombre.split(' ').slice(0,2).join(' ');
+    document.getElementById('stat-max').textContent=sorted[0].Puntos;
+    document.getElementById('stat-total').textContent=sorted.length;
+    document.getElementById('subtitle').textContent=sorted.length+' participantes · en vivo';
     renderPodio(sorted);
-
-    document.getElementById('list').innerHTML = sorted.map((p, i) => {
-      const pos = i + 1;
-      const badgeCls = pos===1?'pos-1':pos===2?'pos-2':pos===3?'pos-3':'pos-other';
-      const rowCls   = pos <= 3 ? 'row top3' : 'row';
-      const avColor  = AV_COLORS[i % AV_COLORS.length];
-      const ini      = initials(p.Nombre);
+    document.getElementById('list').innerHTML=sorted.map((p,i)=>{
+      const pos=i+1;
+      const badgeCls=pos===1?'pos-1':pos===2?'pos-2':pos===3?'pos-3':'pos-other';
+      const rowCls=pos<=3?'row top3':'row';
+      const avColor=AV_COLORS[i%AV_COLORS.length];
+      const ini=initials(p.Nombre);
       return `<div class="${rowCls}">
         <div style="display:flex;justify-content:center"><span class="pos-badge ${badgeCls}">${pos}</span></div>
-        <div style="display:flex;justify-content:center"><div class="avatar-sm ${avColor}">${ini}</div></div>
-        <div class="name" title="${p.Nombre}">${p.Nombre}</div>
-        <div style="display:flex;justify-content:center"><span class="chip chip-ex">${p.Exactos}</span></div>
-        <div style="display:flex;justify-content:center"><span class="chip chip-par">${p.Parciales}</span></div>
+        <div class="name-cell">
+          <div class="avatar-sm ${avColor}">${ini}</div>
+          <span class="name" title="${p.Nombre}">${p.Nombre}</span>
+        </div>
+        <div class="chips-cell">
+          <span class="chip chip-ex">${p.Exactos}</span>
+          <span class="chip chip-par">${p.Parciales}</span>
+        </div>
         <div class="pts-cell">${p.Puntos}<small> pts</small></div>
       </div>`;
     }).join('');
-
-    animateIn('.row');
+    animateIn();
   }
 
-  function tryFetch(url) {
-    return fetch(url + (url.includes('?')?'&':'?') + 't=' + Date.now())
-      .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); });
+  function tryFetch(url){
+    return fetch(url+(url.includes('?')?'&':'?')+'t='+Date.now())
+      .then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.text();});
   }
 
-  function loadData() {
-    document.getElementById('list').innerHTML = '<div class="loading">⏳ Cargando ranking...</div>';
-    document.getElementById('subtitle').textContent = 'Actualizando...';
-
+  function loadData(){
+    document.getElementById('list').innerHTML='<div class="loading">⏳ Cargando ranking...</div>';
+    document.getElementById('subtitle').textContent='Actualizando...';
     tryFetch(CSV_DIRECT)
-      .catch(() => tryFetch(CSV_PROXY))
-      .then(text => {
-        const data = parseCSV(text);
-        if (!data.length) throw new Error('La hoja no tiene datos.');
+      .catch(()=>tryFetch(CSV_PROXY))
+      .then(text=>{
+        const data=parseCSV(text);
+        if(!data.length)throw new Error('La hoja no tiene datos.');
         render(data);
       })
-      .catch(err => {
-        document.getElementById('list').innerHTML =
+      .catch(err=>{
+        document.getElementById('list').innerHTML=
           `<div class="error">❌ No se pudieron cargar los datos.<br>
           <small style="color:rgba(255,255,255,0.35)">${err.message}</small><br><br>
           Verifica que la hoja esté publicada como CSV.</div>`;
-        document.getElementById('subtitle').textContent = 'Error al cargar';
+        document.getElementById('subtitle').textContent='Error al cargar';
       });
   }
 
