@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Tabla de Posiciones</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0a1628;
+    color: #ffffff;
+    min-height: 100vh;
+    padding: 16px;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 16px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .header-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #f5c842, #e8a020);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .header-text h1 {
+    font-size: 17px;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+  }
+
+  .header-text p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.45);
+    margin-top: 2px;
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .stat-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .stat-label {
+    font-size: 10px;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+
+  .stat-value {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+  }
+
+  .stat-value.small {
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  .table-wrap {
+    background: rgba(255,255,255,0.04);
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+  }
+
+  .col-headers {
+    display: grid;
+    grid-template-columns: 44px 1fr 52px 52px 58px;
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .col-headers span {
+    font-size: 10px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .col-headers span:not(:first-child) { text-align: center; }
+  .col-headers span:last-child { text-align: right; }
+
+  .row {
+    display: grid;
+    grid-template-columns: 44px 1fr 52px 52px 58px;
+    align-items: center;
+    padding: 11px 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: background 0.15s;
+  }
+
+  .row:last-child { border-bottom: none; }
+  .row:hover { background: rgba(255,255,255,0.05); }
+  .row.top3 { background: rgba(245,200,66,0.05); }
+
+  .pos-badge {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .pos-1    { background: #f5c842; color: #2a1a00; }
+  .pos-2    { background: #b0b8c8; color: #1a1f2a; }
+  .pos-3    { background: #cd7f45; color: #2a1200; }
+  .pos-other{ background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+
+  .name {
+    font-size: 13px;
+    color: #ffffff;
+    padding-right: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    width: 32px;
+    height: 22px;
+    border-radius: 6px;
+    margin: auto;
+  }
+
+  .chip-ex  { background: rgba(56,145,255,0.18); color: #7cb9ff; }
+  .chip-par { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); }
+
+  .pts {
+    font-size: 14px;
+    font-weight: 700;
+    color: #f5c842;
+    text-align: right;
+  }
+
+  .pts-suffix {
+    font-size: 10px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .loading {
+    text-align: center;
+    padding: 40px 20px;
+    color: rgba(255,255,255,0.4);
+    font-size: 14px;
+  }
+
+  .error {
+    text-align: center;
+    padding: 40px 20px;
+    color: #ff7c7c;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .refresh-btn {
+    display: block;
+    margin: 14px auto 0;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7);
+    font-size: 12px;
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  .refresh-btn:hover { background: rgba(255,255,255,0.14); }
+
+  @media (max-width: 380px) {
+    .name { font-size: 12px; }
+    .col-headers { grid-template-columns: 38px 1fr 44px 44px 52px; }
+    .row          { grid-template-columns: 38px 1fr 44px 44px 52px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-icon">🏆</div>
+  <div class="header-text">
+    <h1>Tabla de Posiciones</h1>
+    <p id="subtitle">Cargando datos...</p>
+  </div>
+</div>
+
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="stat-label">Líder</div>
+    <div class="stat-value small" id="stat-lider">—</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Máx. puntos</div>
+    <div class="stat-value" id="stat-max">—</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">Jugadores</div>
+    <div class="stat-value" id="stat-total">—</div>
+  </div>
+</div>
+
+<div class="table-wrap">
+  <div class="col-headers">
+    <span>#</span>
+    <span style="text-align:left">Nombre</span>
+    <span>Exact.</span>
+    <span>Parc.</span>
+    <span>Pts</span>
+  </div>
+  <div id="list"><div class="loading">⏳ Cargando ranking...</div></div>
+</div>
+
+<button class="refresh-btn" onclick="loadData()">↻ Actualizar</button>
+
+<script>
+  const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vR5b-74iE7mv2NX5FdFdSQDvuS7RR3WPC5dwX5cwvYNuCD16juba_3nKRS7utie1g/pub?gid=1011050670&single=true&output=csv';
+
+  function parseCSV(text) {
+    const lines = text.trim().split('\n');
+    const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+    return lines.slice(1).map(line => {
+      const vals = line.match(/(".*?"|[^,]+|(?<=,)(?=,)|^(?=,)|(?<=,)$)/g) || line.split(',');
+      const obj = {};
+      headers.forEach((h, i) => {
+        obj[h] = (vals[i] || '').trim().replace(/^"|"$/g, '');
+      });
+      return obj;
+    }).filter(r => r['Nombre'] && r['Nombre'].length > 0);
+  }
+
+  function render(data) {
+    const sorted = [...data].sort((a, b) => Number(b.Puntos) - Number(a.Puntos));
+    const list = document.getElementById('list');
+
+    const lider = sorted[0];
+    document.getElementById('stat-lider').textContent =
+      lider.Nombre.split(' ').slice(0, 2).join(' ');
+    document.getElementById('stat-max').textContent = lider.Puntos;
+    document.getElementById('stat-total').textContent = sorted.length;
+    document.getElementById('subtitle').textContent =
+      sorted.length + ' participantes · actualizado ahora';
+
+    list.innerHTML = sorted.map((p, i) => {
+      const pos = i + 1;
+      const cls = pos === 1 ? 'pos-1' : pos === 2 ? 'pos-2' : pos === 3 ? 'pos-3' : 'pos-other';
+      const rowCls = pos <= 3 ? 'row top3' : 'row';
+      return `<div class="${rowCls}">
+        <div><span class="pos-badge ${cls}">${pos}</span></div>
+        <div class="name" title="${p.Nombre}">${p.Nombre}</div>
+        <div style="display:flex;justify-content:center">
+          <span class="chip chip-ex">${p.Exactos}</span>
+        </div>
+        <div style="display:flex;justify-content:center">
+          <span class="chip chip-par">${p.Parciales}</span>
+        </div>
+        <div class="pts">${p.Puntos}<span class="pts-suffix"> pts</span></div>
+      </div>`;
+    }).join('');
+  }
+
+  function loadData() {
+    document.getElementById('list').innerHTML = '<div class="loading">⏳ Cargando ranking...</div>';
+    document.getElementById('subtitle').textContent = 'Actualizando...';
+
+    const url = CSV_URL + '&t=' + Date.now();
+    fetch(url)
+      .then(r => {
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        return r.text();
+      })
+      .then(text => {
+        const data = parseCSV(text);
+        if (data.length === 0) throw new Error('No se encontraron datos en la hoja.');
+        render(data);
+      })
+      .catch(err => {
+        document.getElementById('list').innerHTML =
+          `<div class="error">
+            ❌ No se pudieron cargar los datos.<br>
+            <small>${err.message}</small><br><br>
+            Verifica que la hoja esté publicada correctamente.
+          </div>`;
+        document.getElementById('subtitle').textContent = 'Error al cargar';
+      });
+  }
+
+  loadData();
+</script>
+</body>
+</html>
